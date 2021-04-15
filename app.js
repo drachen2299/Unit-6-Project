@@ -2,6 +2,7 @@ const qwerty = document.getElementById("#qwerty");
 const phrase = document.getElementById("#phrase");
 const startGame = document.querySelector(".btn__reset");
 const overlay = document.getElementById("overlay");
+const keyRow = document.querySelectorAll("button");
 
 let missed = 0;
 
@@ -29,6 +30,7 @@ const getRandomPhraseAsArray = arr => {
     let rnNumber = arr.length;
     let i = Math.floor(Math.random() * rnNumber);
     arr[i].split("");
+    return arr[i];
 }
 
 getRandomPhraseAsArray(phrases);
@@ -37,11 +39,12 @@ getRandomPhraseAsArray(phrases);
 
 const addPhrasesToDisplay = arr => {
     for (let i = 0; i < arr.length; i++ ){
+        let ul = document.getElementsByTagName("ul")[0];
         let li = document.createElement("li");
-        let characters = document.createTextNode(li[i]);
-        characters.appendChild(li);
+        li.textContent = arr[i];
+        ul.appendChild(li);
     
-        if (li.textContent(" ")){
+        if (arr[i] === " "){
             li.classList.add("space");
         } else {
             li.classList.add("letter");
@@ -51,3 +54,29 @@ const addPhrasesToDisplay = arr => {
 
 const getPhrase = getRandomPhraseAsArray(phrases);
 addPhrasesToDisplay(getPhrase);
+
+
+//Check if a letter is in the phrase
+const checkLetter = button => {
+    let liItems = document.getElementsByClassName("letter");
+    let match = null;
+    for (let i = 0;i < liItems.length;i++){
+        if (button.textContent === liItems[i].textContent){
+            liItems[i].classList.add("show");
+            match = button.textContent;
+        }
+    }
+    return match;
+}
+
+// //Listen for the onscreen keyboard to be clicked
+qwerty.addEventListener("click", e => {
+
+});
+
+
+// //Check of the game has been won or lost
+// const checkWin = () => {}
+
+
+
