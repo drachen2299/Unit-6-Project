@@ -3,6 +3,9 @@ const phrase = document.getElementById("phrase");
 const startGame = document.querySelector(".btn__reset");
 const overlay = document.getElementById("overlay");
 const keyRow = document.querySelectorAll("button");
+const lives = document.querySelectorAll(".tries img");
+const title = document.getElementsByClassName("title");
+const start = document.getElementsByClassName("start");
 
 let missed = 0;
 
@@ -61,7 +64,7 @@ const checkLetter = button => {
     let liItems = document.querySelectorAll(".letter");
     let match = null;
     for (let i = 0;i < liItems.length;i++){
-        if (button === liItems[i].textContent){
+        if (button === liItems[i].textContent.toLocaleLowerCase()){
             liItems[i].classList.add("show");
             match = button.textContent;
         }
@@ -76,17 +79,32 @@ qwerty.addEventListener("click", e => {
         e.target.disabled = true;
         const picked = checkLetter(e.target.textContent.toLowerCase());
         if (picked === null) {
+            lives[missed].src = "images/lostHeart.png";
             missed++;
-            //code to change heart icon from liveheart.png to lostheart.png would go here
-            missed.textContent = missed;
         }
+        
     }
 });
 
 
 
 // //Check of the game has been won or lost
-// const checkWin = () => {}
+const checkWin = () => {
+    let letter = document.querySelectorAll(".letter li");
+    let show = document.querySelectorAll(".show li");
+    if (letter.length === show.length) {
+        overlay.classList.remove("start");
+        overlay.classList.add("win");
+        title.textContent = "You Win!";
+        overlay.style.display = "flex";
+    }else if (missed >= 4 ) {
+        overlay.classList.remove("start");
+        overlay.classList.add("lose");
+        title.textContent = "Sorry, you've ran out of guesses!";
+        overlay.style.display = "flex";
+    }
+    
+}
 
 
 
