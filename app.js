@@ -11,6 +11,7 @@ startGame.addEventListener("click", () => {
     //hides the section with the ID of 'overlay' with style.display = 'none';
     if (startGame.textContent === "Start Game"){
         overlay.style.display = "none";
+        //else if the win/lose overlay is shown - change the button to reset the game.
     } else if (startGame.textContent === "Play Again"){
         location.reload();
     } 
@@ -64,6 +65,7 @@ const checkLetter = button => {
     for (let i = 0;i < liItems.length;i++){
         if (button === liItems[i].textContent.toLocaleLowerCase()){
             liItems[i].classList.add("show");
+            //Add transition when the button is clicked and the Li item is appended.
             liItems[i].style.transition = "all 2s";
             match = button.textContent;
         }
@@ -88,7 +90,7 @@ qwerty.addEventListener("click", e => {
 
 
 
-// //Check of the game has been won or lost
+// //Check if the game has been won or lost
 const checkWin = () => {
     let letter = document.querySelectorAll(".letter");
     let show = document.querySelectorAll(".show");
