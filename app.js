@@ -4,8 +4,11 @@ const startGame = document.querySelector(".btn__reset");
 const overlay = document.getElementById("overlay");
 const keyRow = document.querySelectorAll("button");
 const lives = document.querySelectorAll(".tries img");
-const title = document.getElementsByClassName("title");
+const title = document.querySelector("h2.title");
 const start = document.getElementsByClassName("start");
+const winButton = document.createElement("BUTTON");
+const loseButton = document.createElement("BUTTON");
+
 
 let missed = 0;
 
@@ -13,8 +16,8 @@ startGame.addEventListener("click", () => {
     //hides the section with the ID of 'overlay' with style.display = 'none';
     if (startGame.textContent === "Start Game"){
         overlay.style.display = "none";
-    } else {
-        overlay.style.display = "";
+    } else if (startGame.textContent === "Play Again"){
+        location.reload();
     } 
     
 });
@@ -66,6 +69,7 @@ const checkLetter = button => {
     for (let i = 0;i < liItems.length;i++){
         if (button === liItems[i].textContent.toLocaleLowerCase()){
             liItems[i].classList.add("show");
+            liItems[i].style.transition = "all 2s";
             match = button.textContent;
         }
     }
@@ -75,9 +79,11 @@ const checkLetter = button => {
 // //Listen for the onscreen keyboard to be clicked
 qwerty.addEventListener("click", e => {
     if(e.target.tagName === "BUTTON"){
+        checkWin();
         e.target.className = "chosen";
         e.target.disabled = true;
         const picked = checkLetter(e.target.textContent.toLowerCase());
+        
         if (picked === null) {
             lives[missed].src = "images/lostHeart.png";
             missed++;
@@ -90,21 +96,28 @@ qwerty.addEventListener("click", e => {
 
 // //Check of the game has been won or lost
 const checkWin = () => {
-    let letter = document.querySelectorAll(".letter li");
-    let show = document.querySelectorAll(".show li");
+    let letter = document.querySelectorAll(".letter");
+    let show = document.querySelectorAll(".show");
     if (letter.length === show.length) {
         overlay.classList.remove("start");
         overlay.classList.add("win");
         title.textContent = "You Win!";
-        overlay.style.display = "flex";
+        overlay.style.display = "flex";  
+        startGame.textContent = "Play Again";   
     }else if (missed >= 4 ) {
         overlay.classList.remove("start");
         overlay.classList.add("lose");
-        title.textContent = "Sorry, you've ran out of guesses!";
+        title.textContent= "Sorry, you're out of guesses!";
         overlay.style.display = "flex";
+        startGame.textContent = "Play Again";  
     }
     
 }
+
+// Creates a new button for both lose and win 
+
+
+
 
 
 
