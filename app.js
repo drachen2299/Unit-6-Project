@@ -76,7 +76,6 @@ const checkLetter = button => {
 // //Listen for the onscreen keyboard to be clicked
 qwerty.addEventListener("click", e => {
     if(e.target.tagName === "BUTTON"){
-        
         e.target.className = "chosen";
         e.target.disabled = true;
         const picked = checkLetter(e.target.textContent.toLowerCase());
