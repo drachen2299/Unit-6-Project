@@ -98,7 +98,7 @@ const checkWin = () => {
         title.textContent = "You Win!";
         overlay.style.display = "flex";  
         startGame.textContent = "Play Again";   
-    }else if (missed >= 4 ) {
+    }else if (missed > 4 ) {
         overlay.classList.remove("start");
         overlay.classList.add("lose");
         title.textContent= "Sorry, you're out of guesses!";
