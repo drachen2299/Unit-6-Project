@@ -1,13 +1,8 @@
 const qwerty = document.getElementById("qwerty");
-const phrase = document.getElementById("phrase");
 const startGame = document.querySelector(".btn__reset");
 const overlay = document.getElementById("overlay");
-const keyRow = document.querySelectorAll("button");
 const lives = document.querySelectorAll(".tries img");
 const title = document.querySelector("h2.title");
-const start = document.getElementsByClassName("start");
-const winButton = document.createElement("BUTTON");
-const loseButton = document.createElement("BUTTON");
 
 
 let missed = 0;
@@ -79,16 +74,15 @@ const checkLetter = button => {
 // //Listen for the onscreen keyboard to be clicked
 qwerty.addEventListener("click", e => {
     if(e.target.tagName === "BUTTON"){
-        checkWin();
+        
         e.target.className = "chosen";
         e.target.disabled = true;
         const picked = checkLetter(e.target.textContent.toLowerCase());
-        
         if (picked === null) {
             lives[missed].src = "images/lostHeart.png";
             missed++;
         }
-        
+        checkWin(); 
     }
 });
 
@@ -114,7 +108,7 @@ const checkWin = () => {
     
 }
 
-// Creates a new button for both lose and win 
+
 
 
 
